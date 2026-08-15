@@ -54,6 +54,29 @@ human clicks.
 
 ---
 
+## The two caches this project is about
+
+Read this before anything else in the admin panel:
+
+| | TanStack Query, here | Next.js server cache, in `catalog-web` |
+|---|---|---|
+| Where it lives | memory of **this browser tab** | the **Next.js server process** on :3000 |
+| Who can see it | one admin, in one tab | every public visitor |
+| Cleared by a page reload | yes, completely | no, not at all |
+| Invalidated by | `queryClient.invalidateQueries()` | `revalidateTag()` inside the webhook Express sends |
+| Reachable from this app | yes | **no** |
+
+They share no code and no mechanism. `invalidateQueries()` after a successful save refreshes
+*this screen*; the storefront only changes because Express sent a webhook. Turn the webhook
+off (`WEBHOOK_DISABLED=1`) and you can watch the two diverge: this panel shows the new price
+immediately, the public page keeps serving the old one.
+
+`router.refresh()` is not an alternative — it is a Next.js client API, this is not a
+Next.js application, and even inside Next.js it re-renders rather than invalidating a
+server cache.
+
+---
+
 ## The TanStack Query cache
 
 Query keys are namespaced under `admin` (`src/queries/query-keys.ts`):
