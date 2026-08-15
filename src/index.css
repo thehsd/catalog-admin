@@ -1,0 +1,58 @@
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'Yekan Bakh FaNum';
+  src: url('./fonts/YekanBakhFaNum-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Yekan Bakh FaNum';
+  src: url('./fonts/YekanBakhFaNum-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Yekan Bakh FaNum';
+  src: url('./fonts/YekanBakhFaNum-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+
+@theme {
+  --font-sans: 'Yekan Bakh FaNum', system-ui, Tahoma, 'Segoe UI', sans-serif;
+
+  /* Yekan Bakh ships no 500 weight; remap Tailwind's `font-medium` onto the real
+     SemiBold file instead of letting it fall back to Regular. */
+  --font-weight-medium: 600;
+
+  --color-ink-50: oklch(0.98 0.003 250);
+  --color-ink-100: oklch(0.955 0.004 250);
+  --color-ink-200: oklch(0.9 0.006 250);
+  --color-ink-300: oklch(0.82 0.008 250);
+  --color-ink-500: oklch(0.58 0.012 250);
+  --color-ink-700: oklch(0.4 0.016 250);
+  --color-ink-900: oklch(0.24 0.02 250);
+
+  --color-steel-50: oklch(0.96 0.02 235);
+  --color-steel-100: oklch(0.92 0.04 235);
+  --color-steel-500: oklch(0.55 0.12 235);
+  --color-steel-600: oklch(0.48 0.13 235);
+  --color-steel-700: oklch(0.4 0.12 235);
+}
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  background-color: var(--color-ink-50);
+  color: var(--color-ink-900);
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
+}
+
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}

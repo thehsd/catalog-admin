@@ -1,0 +1,49 @@
+# ═══════════════════════════════════════════════════════════════════════════════════════
+# catalog-admin build context
+# ═══════════════════════════════════════════════════════════════════════════════════════
+# `.env` is excluded and its exclusion is load-bearing. Vite inlines every VITE_* variable
+# it can see into the JavaScript it ships to the browser, so the host's `.env` — which
+# points at http://localhost:4000 — must not reach the build. The Docker configuration
+# arrives as explicit build args instead (VITE_API_BASE_URL=/api).
+#
+# What must NOT be listed here:
+#   package.json, pnpm-lock.yaml   the frozen install
+#   pnpm-workspace.yaml            pnpm settings (allowBuilds: esbuild)
+#   index.html                     Vite's entry document
+#   tsconfig.json, vite.config.ts  the type-checked build and the `@` alias
+#   src/                           including src/fonts/*.woff2, referenced from src/index.css
+#   nginx.conf                     copied into the final stage
+# ═══════════════════════════════════════════════════════════════════════════════════════
+
+# Host dependency tree and host build output.
+node_modules/
+dist/
+*.tsbuildinfo
+
+# Host environment — see the note above; this one matters more than usual.
+.env
+.env.*
+
+# Tests, coverage and lint config. `pnpm build` runs `tsc --noEmit && vite build`, neither
+# of which reads these (tsconfig.json covers src/ for the build).
+tests/
+coverage/
+vitest.config.ts
+vitest.setup.ts
+eslint.config.mjs
+
+# Version control and editor state.
+.git/
+.gitignore
+.vscode/
+.idea/
+.DS_Store
+
+# Documentation and Docker artefacts that no runtime code reads.
+README.md
+Dockerfile
+.dockerignore
+
+# Logs and scratch files.
+*.log
+*.tmp

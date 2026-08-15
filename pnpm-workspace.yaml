@@ -1,0 +1,5 @@
+# NOT a workspace definition — there is no `packages:` key and this project links to no
+# sibling project. pnpm 11 uses this filename for per-project *settings*; the only
+# setting needed is permission for these packages to run their install scripts.
+allowBuilds:
+  esbuild: true
